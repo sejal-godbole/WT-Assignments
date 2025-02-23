@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+    <script src="<https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp>"></script>
+</head>
+<body class="">
+    <div class="container bg-">
+        <h2>Library Registration</h2>
+        <form id="libraryForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" required>
+                        
+            <button type="button" onclick="validateForm()">Register</button>
+        </form>
+    </div>
+</body>
+<script>
+    function validateForm() {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        let membership = document.getElementById("membership").value;
+
+        if (name === "" || email === "" || password === "" || confirmPassword === "") {
+            alert("All fields are required!");
+            return;
+        }
+
+        if (!email.includes("@") || !email.includes(".")) {
+            alert("Enter a valid email address!");
+            return;
+        }
+
+        if (password.length < 6) {
+            alert("Password must be at least 6 characters long!");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+        
+        alert("Registration Successful!\nName: " + name + "\nEmail: " + email + "\nMembership: " + membership);
+    }
+</script>
+</html>
