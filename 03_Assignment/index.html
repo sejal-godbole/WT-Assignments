@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #212121;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 300px;
+    }
+
+    #registrationForm {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #registrationForm input, select {
+        margin-bottom: 10px;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    #submitBtn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    #submitBtn:hover {
+        background-color: #218838;
+    }
+</style>
+<body>
+
+    <div class="form-container">
+        <h2 style="text-align: center;">User Registration</h2>
+        <form id="registrationForm">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" class="input-field" placeholder="Enter your full name" required>
+            
+            <label for="username">Username</label>
+            <input type="text" id="username" class="input-field" placeholder="Enter your username" required>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" class="input-field" placeholder="Enter your email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" class="input-field" placeholder="Enter your phone number" required>
+            
+            <label for="gender">Gender</label>
+            <select id="gender" class="input-field" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" class="input-field" placeholder="Enter your password" required>
+            
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm your password" required>
+
+            <button type="submit" id="submitBtn">Register</button>
+        </form>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+    // Apply CSS3 selectors with jQuery
+    $("input:focus").css("border", "2px solid #ff5e62");
+
+    // When user focuses on input fields, change background color
+    $(".input-field").focus(function () {
+        $(this).css("background-color", "#ffe6e6");
+    }).blur(function () {
+        $(this).css("background-color", "white");
+    });
+
+    // Validate form submission
+    $("#registrationForm").submit(function (event) {
+        event.preventDefault();
+
+        let fullName = $("#fullname").val().trim();
+        let username = $("#username").val().trim();
+        let email = $("#email").val().trim();
+        let phone = $("#phone").val().trim();
+        let gender = $("#gender").val();
+        let password = $("#password").val().trim();
+        let confirmPassword = $("#confirmPassword").val().trim();
+
+        if (fullName === "" || username === "" || email === "" || phone === "" || gender === "" || password === "" || confirmPassword === "") {
+            alert("All fields are required!");
+            return;
+        }
+
+        // Email validation using regex
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert("Enter a valid email!");
+            return;
+        }
+
+        // Phone number validation (10-digit)
+        let phonePattern = /^[0-9]{10}$/;
+        if (!phonePattern.test(phone)) {
+            alert("Enter a valid 10-digit phone number!");
+            return;
+        }
+
+        // Password strength validation (min 6 chars, at least one number)
+        let passwordPattern = /^(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (!passwordPattern.test(password)) {
+            alert("Password must be at least 6 characters long and contain at least one number!");
+            return;
+        }
+
+        // Confirm password validation
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        alert("Registration Successful!");
+        $("#registrationForm")[0].reset(); // Reset form fields
+    });
+
+    // Button hover effect with jQuery
+    $("#submitBtn").hover(function () {
+        $(this).css("background", "#ff9966");
+    }, function () {
+        $(this).css("background", "#28a745");
+    });
+});
+
+</script>
+</html>
